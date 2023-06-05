@@ -1,13 +1,14 @@
 const request = require("supertest");
 const app = require("../index");
+
 const plataformaAlta = {
   Nombre: "Plataforma " + (( ) => (Math.random() + 1).toString(36).substring(2))(),  // Genera un nombre aleatorio
-  Precio: 10.5,
+  Precio: "105",
 };
 const plataformaModificacion = {
   IdArticulo: 1,
   Nombre: "Plataforma " + (( ) => (Math.random() + 1).toString(36).substring(2))(),  // Genera un nombre aleatorio
-  Precio: 10.5,
+  Precio: "10",
 };
 
 
@@ -17,17 +18,13 @@ describe("GET /api/plataformas", () => {
     const res = await request(app).get("/api/plataformas");
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual(
-     expect.objectContaining({
-      Items: 
       expect.arrayContaining([
         expect.objectContaining({
           IdPlataforma: expect.any(Number),
           Nombre: expect.any(String),
-          Precio: expect.any(Number),
+          Precio: expect.any(String),
         })
       ]),
-      RegistrosTotal:  expect.any(Number) 
-     })
     );
   });
 });
@@ -39,9 +36,9 @@ describe("GET /api/plataformas/:id", () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual(
       expect.objectContaining({
-        IdArticulo: expect.any(Number),
+        IdPlataforma: expect.any(Number),
         Nombre: expect.any(String),
-        Precio: expect.any(Number),
+        Precio: expect.any(String),
       })
     );
   });
@@ -56,7 +53,7 @@ describe("POST /api/plataformas", () => {
       expect.objectContaining({
         IdPlataforma: expect.any(Number),
         Nombre: expect.any(String),
-        Precio: expect.any(Number),
+        Precio: expect.any(String),
       })
     );
   });
@@ -65,7 +62,7 @@ describe("POST /api/plataformas", () => {
 // test route/plataformas/:id PUT
 describe("PUT /api/plataformas/:id", () => {
   it("Deberia devolver la plataforma con el id 1 modificado", async () => {
-    const res = await request(app).put("/api/plataformas/1").send(articuloModificacion);
+    const res = await request(app).put("/api/plataformas/1").send(plataformaModificacion);
     expect(res.statusCode).toEqual(200);
   });
 });
@@ -75,16 +72,6 @@ describe("DELETE /api/plataformas/:id", () => {
   it("Deberia devolver la plataforma con el id 1 borrado", async () => {
     const res = await request(app).delete("/api/plataformas/1");
     expect(res.statusCode).toEqual(200);
-    
-    // baja logica, no se borra realmente
-    // expect(res.body).toEqual(
-    //   expect.objectContaining({
-    //     IdPlataforma: expect.any(Number),
-    //     Nombre: expect.any(String),
-    //     Precio: expect.any(Number),
-    //   })
-    // );
-
   });
 });
 

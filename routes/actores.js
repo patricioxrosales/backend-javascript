@@ -6,10 +6,6 @@ const { Op, ValidationError } = require("sequelize");
 
 //get actores
 router.get("/api/actores", async function (req, res, next) {
-  // #swagger.tags = ['actores']
-  // #swagger.summary = 'obtiene todos los actores'
-  // consulta de articulos con filtros y paginacion
-
   let where = {};
   if (req.query.Nombre != undefined && req.query.Nombre !== "") {
     where.Nombre = {
@@ -136,39 +132,22 @@ router.put("/api/actores/:id", async (req, res) => {
 
 //delete actores
 router.delete("/api/actores/:id", async (req, res) => {
-  // #swagger.tags = ['Actores']
-  // #swagger.summary = 'elimina un Actor'
-  // #swagger.parameters['id'] = { description: 'identificador del Actor..' }
-
-  let bajaFisica = false;
-
-  if (bajaFisica) {
-    // baja fisica
-    let filasBorradas = await db.actores.destroy({
-      where: { IdActores: req.params.id },
-    });
-    if (filasBorradas == 1) res.sendStatus(200);
-    else res.sendStatus(404);
-  } else {
-    // baja logica
-    try {
-      let data = await db.sequelize.query(
-        "UPDATE actores SET Activo = case when Activo = 1 then 0 else 1 end WHERE IdActores = :IdActores",
-        {
-          replacements: { IdActores: +req.params.id },
+  try{
+    let bajaFisica = true;      
+    if (bajaFisica) {
+      let filasBorradas = await db.actores.destroy({
+        where: { IdActores: req.params.id },
+      });
+      if (filasBorradas == 1) res.sendStatus(200);
+      else res.sendStatus(404);
+    }} catch (err) {
+        if (err instanceof ValidationError) {
+          const messages = err.errors.map((x) => x.message);
+          res.status(400).json(messages);
+        } else {
+          throw err;
         }
-      );
-      res.sendStatus(200);
-    } catch (err) {
-      if (err instanceof ValidationError) {
-        // si son errores de validacion, los devolvemos
-        const messages = err.errors.map((x) => x.message);
-        res.status(400).json(messages);
-      } else {
-        // si son errores desconocidos, los dejamos que los controle el middleware de errores
-        throw err;
       }
     }
-  }
-});
+);
 module.exports = router;

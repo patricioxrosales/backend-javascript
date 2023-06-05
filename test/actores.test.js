@@ -1,5 +1,6 @@
 const request = require("supertest");
 const app = require("../index");
+
 const actorAlta = {
   Nombre: "Actor " + (( ) => (Math.random() + 1).toString(36).substring(2))(),  // Genera un nombre aleatorio
   Apellido: "Actor " + (( ) => (Math.random() + 1).toString(36).substring(2))(),  // Genera un apellido aleatorio
@@ -7,7 +8,7 @@ const actorAlta = {
   FechaNacimiento: "1970-01-01",
 };
 const actorModificacion = {
-  IdArticulo: 1,
+  IdActores: 1,
   Nombre: "Actor " + (( ) => (Math.random() + 1).toString(36).substring(2))(),  // Genera un nombre aleatorio
   Apellido: "Actor " + (( ) => (Math.random() + 1).toString(36).substring(2))(),  // Genera un apellido aleatorio
   Nacionalidad: "estadonidense",
@@ -85,15 +86,6 @@ describe("DELETE /api/actores/:id", () => {
   it("Deberia devolver el actor con el id 1 borrado", async () => {
     const res = await request(app).delete("/api/actores/1");
     expect(res.statusCode).toEqual(200);
-    
-    // baja logica, no se borra realmente
-    // expect(res.body).toEqual(
-    //   expect.objectContaining({
-    //     IdArticulo: expect.any(Number),
-    //     Nombre: expect.any(String),
-    //     Precio: expect.any(Number),
-    //   })
-    // );
 
   });
 });

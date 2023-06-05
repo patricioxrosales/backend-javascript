@@ -3,7 +3,6 @@ const db = require("aa-sqlite");
 async function CrearBaseSiNoExiste() {
   // abrir base, si no existe el archivo/base lo crea
   await db.open("./.data/peliculas.db");
-  //await db.open(process.env.base);
   
     let existe = false;
     let res = null;
@@ -48,6 +47,7 @@ async function CrearBaseSiNoExiste() {
         "insert into peliculas values	(1,'son como niños',2,'22 de julio de 2010','102','(Adam Sandle, Kevin James)'),(2,'ironman',1,'14 de abril de 2008','126','(Robert Downey Jr., Terrence Howardm,Gwyneth Paltrow,Jeff Bridges)');"
       );
     }
+  
     existe = false;
 
   res = await db.get(
@@ -57,7 +57,7 @@ async function CrearBaseSiNoExiste() {
   if (res.contar > 0) existe = true;
   if (!existe) {
     await db.run(
-      "CREATE table plataformas( IdPlataforma INTEGER PRIMARY KEY AUTOINCREMENT, Nombre text NOT NULL UNIQUE, Precio);"
+      "CREATE table plataformas( IdPlataforma INTEGER PRIMARY KEY AUTOINCREMENT, Nombre text NOT NULL UNIQUE, Precio text NOT NULL UNIQUE);"
     );
     console.log("tabla plataformas creada!");
     await db.run(

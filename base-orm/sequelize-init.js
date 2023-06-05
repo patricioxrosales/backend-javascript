@@ -116,11 +116,17 @@ const plataformas = sequelize.define(
       },
     },
     Precio: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       allowNull: false,
       validate: {
-        args: true,
-        msg: "precio es requerido",
+        notEmpty: {
+          args: true,
+          msg: "precio es requerido",
+        },
+        len: {
+          args: [1, 5],
+          msg: "precio no mas de 5 cifras",
+        },
       }
     }
   },
@@ -243,8 +249,8 @@ const actores = sequelize.define(
 
 module.exports = {
     sequelize,
-    peliculas,
     generos,
+    peliculas,
     plataformas,
     actores,
   };

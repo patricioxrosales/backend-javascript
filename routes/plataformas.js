@@ -14,9 +14,6 @@ router.get("/api/plataformas", async function (req, res, next) {
 
 //get por id plataformas
 router.get("/api/plataformas/:id", async function (req, res, next) {
-    // #swagger.tags = ['Plataformas']
-    // #swagger.summary = 'obtiene una Plataforma'
-    // #swagger.parameters['id'] = { description: 'identificador de Plataformas...' }
     let data = await db.plataformas.findAll({
       attributes: ["IdPlataforma", "Nombre","Precio"],
       where: { IdPlataforma: req.params.id },
@@ -27,13 +24,6 @@ router.get("/api/plataformas/:id", async function (req, res, next) {
 
 //post plataformas
 router.post("/api/plataformas/", async (req, res) => {
-  // #swagger.tags = ['Plataformas']
-  // #swagger.summary = 'agrega una plataforma'
-  /*    #swagger.parameters['item'] = {
-                in: 'body',
-                description: 'nuevo Plataforma',
-                schema: { $ref: '#/definitions/Plataformas' }
-    } */
   try {
     let data = await db.plataformas.create({
       Nombre: req.body.Nombre,
@@ -55,14 +45,6 @@ router.post("/api/plataformas/", async (req, res) => {
 
 //put plataformas
 router.put("/api/plataformas/:id", async (req, res) => {
-  // #swagger.tags = ['Plataformas']
-  // #swagger.summary = 'actualiza una plataforma'
-  // #swagger.parameters['id'] = { description: 'identificador del actor...' }
-  /*    #swagger.parameters['actor'] = {
-                in: 'body',
-                description: 'Plataforma a actualizar',
-                schema: { $ref: '#/definitions/Plataforma' }
-    } */
 
   try {
     let item = await db.plataformas.findOne({
@@ -80,7 +62,6 @@ router.put("/api/plataformas/:id", async (req, res) => {
     item.Nombre = req.body.Nombre;
     item.Precio = req.body.Precio;
     await item.save();
-
     res.sendStatus(200);
   } catch (err) {
     if (err instanceof ValidationError) {
@@ -97,39 +78,23 @@ router.put("/api/plataformas/:id", async (req, res) => {
 
 //delete plataformas
 router.delete("/api/plataformas/:id", async (req, res) => {
-  // #swagger.tags = ['Plataformas']
-  // #swagger.summary = 'elimina una Plataforma'
-  // #swagger.parameters['id'] = { description: 'identificador de la Plataforma..' }
-
-  let bajaFisica = false;
-
-  if (bajaFisica) {
-    // baja fisica
-    let filasBorradas = await db.plataformas.destroy({
-      where: { IdPlataforma: req.params.id },
-    });
-    if (filasBorradas == 1) res.sendStatus(200);
-    else res.sendStatus(404);
-  } else {
-    // baja logica
-    try {
-      let data = await db.sequelize.query(
-        "UPDATE plataformas SET Activo = case when Activo = 1 then 0 else 1 end WHERE IdPlataforma = :IdPlataforma",
-        {
-          replacements: { IdPlataforma: +req.params.id },
+  try{
+    let bajaFisica = true;      
+    if (bajaFisica) {
+      let filasBorradas = await db.plataformas.destroy({
+        where: { IdPlataforma: req.params.id },
+      });
+      if (filasBorradas == 1) res.sendStatus(200);
+      else res.sendStatus(404);
+    }} catch (err) {
+        if (err instanceof ValidationError) {
+          const messages = err.errors.map((x) => x.message);
+          res.status(400).json(messages);
+        } else {
+          throw err;
         }
-      );
-      res.sendStatus(200);
-    } catch (err) {
-      if (err instanceof ValidationError) {
-        // si son errores de validacion, los devolvemos
-        const messages = err.errors.map((x) => x.message);
-        res.status(400).json(messages);
-      } else {
-        // si son errores desconocidos, los dejamos que los controle el middleware de errores
-        throw err;
       }
     }
-  }
-});
+);
+
 module.exports = router;
