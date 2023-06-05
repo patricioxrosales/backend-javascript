@@ -44,7 +44,7 @@ async function CrearBaseSiNoExiste() {
       );
       console.log("tabla peliculas creada!");
       await db.run(
-        "insert into peliculas values	(1,'son como niños',2,'22 de julio de 2010','102','(Adam Sandle, Kevin James)'),(2,'ironman',1,'14 de abril de 2008','126','(Robert Downey Jr., Terrence Howardm,Gwyneth Paltrow,Jeff Bridges)');"
+        "insert into peliculas values	(1,'Son como niños',2,'22 de julio de 2010','102','(Adam Sandler, Kevin James)'),(2,'Ironman',1,'14 de abril de 2008','126','(Robert Downey Jr., Terrence Howardm,Gwyneth Paltrow,Jeff Bridges)'),(3,'Interestelar',10,'26 de octubre de 2014','169','(Anne Hathaway, Matthew McConaughey)'),(4,'IT',3,'21 de septiembre de 2017','135','(Jaeden Martell, Bill Skarsgård)'),(5,'Avatar',10,'18 de diciembre de 2009','162','(Zoe Saldaña, Sam Worthington)'),(6,'El club de la pelea',5,'14 de noviembre de 1999','139','(Brad Pitt, Edward Norton)'),(7,'Rapidos y Furiosos',1,'22 de junio de 2001','107','(Vin Diesel, Paul Walker)'),(8,'Star Wars IV',10,'25 de mayo de 1977','162','(Harrinson Ford, Mark Hamill)'),(9,'Creed',1,'25 de noviembre de 2015','133','(Michael B Jordan, Sylvester Stallone)'),(10,'Casino',8,'22 de noviembre de 1995','178','(Robert De Niro, Sharon Stone)')"
       );
     }
   
@@ -61,7 +61,7 @@ async function CrearBaseSiNoExiste() {
     );
     console.log("tabla plataformas creada!");
     await db.run(
-      "insert into plataformas values	(1,'Netflix',700),(2,'Amazon Prime',1300),(3,'HBO MAX',1200),(4,'STAR+',1000),(5,'Paramount+',900);"
+      "insert into plataformas values	(1,'Netflix',700),(2,'Amazon Prime',1300),(3,'HBO MAX',1200),(4,'STAR+',1000),(5,'Paramount+',900),(6,'Apple TV',1400),(7,'Flow',700),(8,'Directv GO',1000),(9,'Movistar Play',500),(10,'Lionsgate +',1300);"
     );
   }
   
@@ -78,7 +78,7 @@ async function CrearBaseSiNoExiste() {
     );
     console.log("tabla actores creada!");
     await db.run(
-      "insert into actores values	(1,'Brad','Pitt','Estadounidense','1970-01-01'),(2,'Brad','Pitt','Estadounidense','1970-01-01'),(3,'Brad','Pitt','Estadounidense','1970-01-01'),(4,'Brad','Pitt','Estadounidense','1970-01-01'),(5,'Brad','Pitt','Estadounidense','1970-01-01');"
+      "insert into actores values	(1,'Brad','Pitt','Estadounidense','1970-01-01'),(2,'Leonardo','Dicaprio','Estadounidense','1970-01-01'),(3,'Ricardo','Darin','Argentino','1970-01-01'),(4,'Zac','Effron','Estadounidense','1970-01-01'),(5,'Ben','Affleck','Estadounidense','1970-01-01'),(6,'Robert','Downey JR','Estadounidense','1970-01-01'),(7,'Adam','Sandler','Estadounidense','1970-01-01'),(8,'Matt','Damon','Estadounidense','1970-01-01'),(9,'Anne','Hathaway','Estadounidense','1970-01-01'),(10,'Guillermo','Francela','Argentino','1970-01-01');"
     );
   }
   db.close();
