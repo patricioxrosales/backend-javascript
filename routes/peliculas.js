@@ -1,16 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../base-orm/sequelize-init");
-const Route = require("express/lib/router/route");
-
+const { Op, ValidationError } = require("sequelize");
 
 router.get("/api/peliculas", async function (req, res, next){
 
-    let Items = await db.peliculas.findAll({
-        attributes: ["Idpelicula", "Nombre","Idgenero", "fecha", "duracion", "actores"],
-      });
-      res.json(Items);
+  let where = {};
+  if (req.query.Nombre != undefined && req.query.Nombre !== "") {
+      where.Nombre = {
+          [Op.like]: "%" + req.query.Nombre + "%",
+      };
+  }
+
+  try {
+    const Items = await db.peliculas.findAndCountAll({
+      attributes: ["Idpelicula", "Nombre", "Idgenero", "fecha", "duracion", "actores"],
+      order: [["Nombre", "ASC"]],
+      where,
     });
+
+    res.json(Items.rows);
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.get("/api/peliculas/:id", async function (req, res, next){
     let Items = await db.peliculas.findOne({

@@ -1,15 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../base-orm/sequelize-init");
-
+const { Op } = require("sequelize");
 
 router.get("/api/generos", async function (req, res, next){
 
-    let data = await db.generos.findAll({
+    let where = {};
+    if (req.query.Nombre != undefined && req.query.Nombre !== "") {
+        where.Nombre = {
+            [Op.like]: "%" + req.query.Nombre + "%",
+        };
+    }
+    try {
+      const Items = await db.generos.findAndCountAll({
         attributes: ["Idgenero", "Nombre"],
+        order: [["Nombre", "ASC"]],
+        where,
       });
-      res.json(data);
-    });
+  
+      res.json(Items.rows);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 router.get("/api/generos/:id", async function (req, res, next){
     let items = await db.generos.findOne({

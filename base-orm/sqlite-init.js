@@ -57,7 +57,7 @@ async function CrearBaseSiNoExiste() {
   if (res.contar > 0) existe = true;
   if (!existe) {
     await db.run(
-      "CREATE table plataformas( IdPlataforma INTEGER PRIMARY KEY AUTOINCREMENT, Nombre text NOT NULL UNIQUE, Precio text NOT NULL UNIQUE);"
+      "CREATE table plataformas( IdPlataforma INTEGER PRIMARY KEY AUTOINCREMENT, Nombre text NOT NULL UNIQUE, Precio text NOT NULL);"
     );
     console.log("tabla plataformas creada!");
     await db.run(
