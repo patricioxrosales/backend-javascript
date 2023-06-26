@@ -16,6 +16,7 @@ router.get("/api/generos/:id", async function (req, res, next){
         attributes: [
             "Idgenero",
             "Nombre",
+            "Activo",
         ],
         where: { Idgenero: req.params.id },
     });

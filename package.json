@@ -1,7 +1,7 @@
 {
   "name": "ppai",
   "version": "1.0.0",
-  "description": "",
+  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
@@ -12,12 +12,17 @@
   "license": "ISC",
   "dependencies": {
     "aa-sqlite": "^1.0.29",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "sequelize": "^6.31.1",
+    "sequelize": "^6.32.1",
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.22",
     "supertest": "^6.3.3"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": []
 }
