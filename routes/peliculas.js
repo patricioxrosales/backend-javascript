@@ -34,6 +34,7 @@ router.get("/api/peliculas/:id", async function (req, res, next){
           "fecha",
           "duracion",
           "actores",
+          "Activo",
         ],
         where: { Idpelicula: req.params.id },
     });

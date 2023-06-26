@@ -74,7 +74,7 @@ async function CrearBaseSiNoExiste() {
   if (res.contar > 0) existe = true;
   if (!existe) {
     await db.run(
-      "CREATE table actores( IdActores INTEGER PRIMARY KEY AUTOINCREMENT, Nombre text NOT NULL , Apellido text NOT NULL , Nacionalidad text NOT NULL , FechaNacimiento text );"
+      "CREATE table actores( IdActores INTEGER PRIMARY KEY AUTOINCREMENT, Nombre text NOT NULL , Apellido text NOT NULL , Nacionalidad text NOT NULL , FechaNacimiento text);"
     );
     console.log("tabla actores creada!");
     await db.run(

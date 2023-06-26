@@ -71,9 +71,9 @@ const peliculas = sequelize.define(
             args: true,
             msg: "son requeridos los actores",
           }
-        }
+        },
 
-      }
+      },
   },
   
   {
@@ -127,8 +127,8 @@ const plataformas = sequelize.define(
           args: [1, 5],
           msg: "precio no mas de 5 cifras",
         },
-      }
-    }
+      },
+    },
   },
   {
     // pasar a mayusculas
@@ -169,7 +169,6 @@ const generos = sequelize.define(
           },
         },
       },
-
     },
   
     {
