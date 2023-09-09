@@ -42,9 +42,7 @@ router.post("/api/plataformas/", async (req, res) => {
     try {
         let data = await db.plataformas.create({
             Nombre: req.body.Nombre,
-            Apellido: req.body.Apellido,
-            Nacionalidad: req.body.Nacionalidad,
-            FechaNacimiento: req.body.FechaNacimiento,
+            Precio: req.body.Precio
         });
        res.status(200).json(data);
        } catch (err) {
@@ -68,9 +66,7 @@ router.put("/api/plataformas/:id", async (req, res) => {
           return;
         }
         item.Nombre = req.body.Nombre;
-        item.Apellido = req.body.Apellido;
-        item.Nacionalidad = req.body.Nacionalidad;
-        item.FechaNacimiento = req.body.FechaNacimiento;
+        item.Precio = req.body.Precio
         await item.save();
         res.sendStatus(200);
       } catch (err) {
